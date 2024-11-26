@@ -14,12 +14,12 @@ The files in this respository are an example to help kickstart Lumerical users w
    - Declaring Ports
    - Exporting to GDS
    - Visualize topdown and cross-section (in console)
-   - Generate Lumerical FDTD simulation
+   - Generate Lumerical EME simulation
 2. Advance PCells (Contradirectional Coupler)
    - Generate Geometries from Basic PCells
    - Declaring Ports in Nested PCells
    - Export to GDS
-   - Generate Lumerical EME simulation
+   - Generate Lumerical FDTD simulation
    - Export and Load S-Parameter Files
    - Device Transmission in IPKISS
 3. Circuit Design File (Grating Couplers + ContraDC)
