@@ -1,0 +1,13 @@
+*.json
+*.txt
+*.docx
+*.gds
+*.lms
+*.log
+*.dat
+*.s4p
+.session_Test_Circuit
+*.iclib
+*.icproject
+*.pyc
+ContraDirectionCoupler_vid1.py
