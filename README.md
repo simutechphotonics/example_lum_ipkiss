@@ -2,8 +2,8 @@
 The files in this respository are an example to help kickstart Lumerical users who are looking to utilize the connect with IPKISS. 
 
 ## Prerequisites
-- Ansys [Lumerical FDTD](https://simutechgroup.com/ansys-software/optical/ansys-lumerical-fdtd/)
 - Ansys [Lumerical MODE](https://simutechgroup.com/ansys-software/optical/ansys-lumerical-mode/)
+- Ansys [Lumerical FDTD](https://simutechgroup.com/ansys-software/optical/ansys-lumerical-fdtd/)
 - [IPKISS](https://academy.lucedaphotonics.com/training/getting_started/0_installation/install_windows#install-windows)
 - Optional: [PyCharm](https://academy.lucedaphotonics.com/tutorials/environment_setup/download_install_ide)
 
