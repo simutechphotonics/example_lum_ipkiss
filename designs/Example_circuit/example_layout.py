@@ -1,7 +1,6 @@
-#from designs.BraggStraight import BraggStraight as Bragg
-from designs.ContraDC import ContraDirectionCoupler_dev as CDC
 from si_fab import all as pdk
 from ipkiss3 import all as i3
+from designs.ContraDC import ContraDirectionCoupler as CDC
 
 #Initiate the devices
 CDC = CDC.ContraDC()
@@ -30,8 +29,8 @@ specs = [
 
     i3.ConnectBend("GC1:out","CDC:Port1"),
     i3.ConnectBend("GC2:out","CDC:Port2"),
-    i3.ConnectBend("GC3:out","CDC:Port3"),
-    i3.ConnectBend("GC4:out","CDC:Port4"),
+    i3.ConnectBend("GC3:out","CDC:Port4"), #prevent an waveguide crossing
+    i3.ConnectBend("GC4:out","CDC:Port3"),
 ]
 
 exposed_port_names = {
@@ -51,8 +50,8 @@ my_circuit = i3.Circuit(
 
 # Show the circuit and write to layout
 my_circuit_layout = my_circuit.Layout()
-# my_circuit_layout.visualize(annotate=True) #Display in python
-# my_circuit_layout.write_gdsii("example_layout.gds") #create layout file
+my_circuit_layout.visualize(annotate=True) #Display in python
+my_circuit_layout.write_gdsii("example_layout.gds") #create layout file
 
 # Circuit model
 import numpy as np
@@ -86,9 +85,9 @@ S_total = my_circuit_cm.get_smatrix(wavelengths=wavelengths) #get the smatrix an
 S_total.visualize(
     term_pairs=[
         ("Port1", "Port2"),  # Through port
-        ("Port1", "Port3"),  # Drop port
+        ("Port1", "Port4"),  # Drop port, Port 4 (GC) connected to Port 3 (CDC) to prevent a waveguide crossing in the layout
     ],
 )
 
 #To IPKISS Canvas
-#my_circuit_layout.to_canvas(project_name="Test_Circuit")
+my_circuit_layout.to_canvas(project_name="Test_Circuit")

@@ -1,6 +1,12 @@
 from si_fab import all as pdk
-from designs.BraggStraight import BraggStraight as Bragg
 from ipkiss3 import all as i3
+#relative import of devices
+import os
+import sys
+current = os.path.dirname(os.path.realpath(__file__))
+parent = os.path.dirname(current)
+sys.path.append(parent)
+from designs.BraggStraight import BraggStraight as Bragg
 
 class ContraDC(i3.PCell):
     """ContraDirection Coupler with 2 input and 2 output."""  # a short description of the class is always useful to include
@@ -57,6 +63,8 @@ class ContraDC(i3.PCell):
             elems += Bragg2.Layout().elements
 
             if self.cladding:
+                if self.simulation_geometry:
+                    self.period_num = 5
                 elems += i3.Rectangle(  # we can add a cladding layer as well to improve performance
                     layer=self.cladding_layer,
                     center=(self.period*self.period_num/2, self.wg2_width/2+self.dw2/2+self.gap/2),
@@ -137,12 +145,14 @@ class ContraDC(i3.PCell):
     class Netlist(i3.NetlistFromLayout):
         pass
 if __name__ == "__main__":
+    # #Layout
     # dev_cdc = ContraDC()  # init device
     # dev_layout = dev_cdc.Layout()  # create layout
     #
-    # #dev_layout.visualize(annotate=True) #visualize device in
+    # dev_layout.visualize(annotate=True) #visualize device in
     # dev_layout.write_gdsii("cdc_layout.gds")  # create gds
-    #
+
+    # #Simulation
     # sim_cdc = ContraDC(simulation_geometry=True)
     # sim_layout = sim_cdc.Layout()
     # sim_geom = i3.device_sim.SimulationGeometry(
@@ -196,9 +206,11 @@ if __name__ == "__main__":
     #         ),
     #     ]
     # )
-    # #simulation.inspect()
-    # simulation.get_result("macro_get_sparam")
+    # simulation.inspect()
+    # simulation.get_result("macro_get_sparam"
 
+
+    # #Transmission S-parameter Simulation
     cdc = ContraDC()
     cdc_cm = ContraDC().CircuitModel()
 
