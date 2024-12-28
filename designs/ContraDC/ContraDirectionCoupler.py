@@ -212,7 +212,7 @@ if __name__ == "__main__":
 
     # #Transmission S-parameter Simulation
     cdc = ContraDC()
-    cdc_cm = ContraDC().CircuitModel()
+    cdc_cm = cdc.CircuitModel()
 
     import numpy as np
     wavelengths = np.linspace(1.5, 1.6, 201)
