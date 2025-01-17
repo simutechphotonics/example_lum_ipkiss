@@ -40,28 +40,32 @@ class ContraDC(i3.PCell):
             buswg_ypos = self.wg1_width / 2 + self.dw1 / 2 + self.gap + self.wg2_width / 2 + self.dw2 / 2
             return buswg_ypos
 
-        def _generate_elements(self, elems):
+        def _generate_instance(self,insts):
             # Instantiate the bragg waveguides
-            Bragg1 = Bragg.BraggStraight()
-            Bragg1.dw = self.dw1
-            Bragg1.wg_width = self.wg1_width
-            Bragg1.period = self.period
-            Bragg1.period_num = self.period_num
-            Bragg1.cladding = False
-            Bragg2 = Bragg.BraggStraight()
-            Bragg2.dw = self.dw2
-            Bragg2.wg_width = self.wg2_width
-            Bragg2.period = self.period
-            Bragg2.period_num = self.period_num
-            Bragg2.cladding = False
-            Bragg2.y_pos = self.calc_gap_pos()
-            if self.simulation_geometry:
-                Bragg1.simulation_geometry = self.simulation_geometry
-                Bragg2.simulation_geometry = self.simulation_geometry
+            Bragg1 = Bragg.BraggStraight(
+                dw = self.dw1,
+                wg_width = self.wg1_width,
+                period = self.period,
+                period_num = self.period_num,
+                cladding = False,
+                simulation_geometry=self.simulation_geometry
+            )
 
-            elems += Bragg1.Layout().elements
-            elems += Bragg2.Layout().elements
+            Bragg2 = Bragg.BraggStraight(
+                dw = self.dw2,
+                wg_width = self.wg2_width,
+                period = self.period,
+                period_num = self.period_num,
+                cladding = False,
+                simulation_geometry=self.simulation_geometry
+            )
 
+            insts += i3.SRef(name="Bragg1", reference=Bragg1, position=(0,0))
+            insts += i3.SRef(name="Bragg2", reference=Bragg2, position=(0, self.calc_gap_pos()))
+
+            return insts
+
+        def _generate_elements(self, elems):
             if self.cladding:
                 if self.simulation_geometry:
                     self.period_num = 5
